@@ -1,4 +1,4 @@
-# Lawin Backend API written in Python using Flask Framework
+# Lawin Backend API written in Python using Flask
 
 * A simple social media application for Lawyers to post updates and clients to comment, like and message them directly.
 
