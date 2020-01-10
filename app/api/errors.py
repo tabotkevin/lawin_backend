@@ -15,7 +15,7 @@ def bad_request(e):
 def not_found(e):
     response = jsonify({'status': 401, 'error': 'Unauthorized',
                         'message': 'Unauthorized'})
-    response.status_code = 404
+    response.status_code = 401
     return response
 
 
