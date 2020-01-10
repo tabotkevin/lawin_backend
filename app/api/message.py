@@ -1,4 +1,4 @@
-from flask import request, jsonify, g
+from flask import request, jsonify, g, abort
 from . import api
 from .. import db
 from ..models import Message, Reply
@@ -33,6 +33,8 @@ def get_total():
 @auth_token.login_required
 def get_replies(id):
     message = Message.query.get_or_404(id)
+    if not message.is_mine():
+        abort(401)
     return jsonify([reply.export_data() for reply in message.replies])
 
 
@@ -40,6 +42,8 @@ def get_replies(id):
 @auth_token.login_required
 def get_message(id):
     message = Message.query.get_or_404(id)
+    if not message.is_mine():
+        abort(401)
     message.read = 1
     db.session.add(message)
     db.session.commit()
@@ -78,6 +82,8 @@ def new_message():
 @auth_token.login_required
 def delete_message(id):
     message = Message.query.get_or_404(id)
+    if not message.is_mine():
+        abort(401)
     db.session.delete(message)
     db.session.commit()
     return {}

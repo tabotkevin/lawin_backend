@@ -222,8 +222,7 @@ class Comment(db.Model):
     def get_author_image(self):
         if self.author.image is None:
             return 'false'
-        else:
-            return url_for('static', filename='images/users/'+self.author.image, _external=True)
+        return url_for('static', filename='images/users/'+self.author.image, _external=True)
 
 
     def export_data(self):
@@ -273,6 +272,11 @@ class Message(db.Model):
 
     def isMe(self):
         if self.sender == g.user:
+            return True
+        return False
+    
+    def is_mine(self):
+        if self.receiver == g.user:
             return True
         return False
 
