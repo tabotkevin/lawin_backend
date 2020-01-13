@@ -270,7 +270,7 @@ class Message(db.Model):
             return 'false'
         return url_for('static', filename='images/users/'+user.image, _external=True)
 
-    def isMe(self):
+    def is_me(self):
         if self.sender == g.user:
             return True
         return False
@@ -283,7 +283,7 @@ class Message(db.Model):
     def export_data(self):
         return {
             'id': self.id,
-            'isMe': self.isMe(),
+            'isMe': self.is_me(),
             'title': self.title,
             'body': self.body,
             'created_on': self.created_on,
@@ -323,15 +323,20 @@ class Reply(db.Model):
             return 'false'
         return url_for('static', filename='images/users/'+user.image, _external=True)
 
-    def isMe(self):
+    def is_me(self):
         if self.author == g.user:
+            return True
+        return False
+    
+    def is_mine(self):
+        if self.receiver == g.user:
             return True
         return False
 
     def export_data(self):
         return {
             'id': self.id,
-            'isMe': self.isMe(),
+            'isMe': self.is_me(),
             'body': self.body,
             'timestamp': self.timestamp,
             'author_id': self.author_id,

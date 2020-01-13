@@ -43,7 +43,7 @@ def get_replies(id):
 def get_message(id):
     message = Message.query.get_or_404(id)
     if not message.is_mine():
-        abort(401)
+        abort(403)
     message.read = 1
     db.session.add(message)
     db.session.commit()
@@ -83,7 +83,7 @@ def new_message():
 def delete_message(id):
     message = Message.query.get_or_404(id)
     if not message.is_mine():
-        abort(401)
+        abort(403)
     db.session.delete(message)
     db.session.commit()
     return {}

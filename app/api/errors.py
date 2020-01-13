@@ -11,11 +11,11 @@ def bad_request(e):
     return response
 
 
-@api.app_errorhandler(401)  # this has to be an app-wide handler
+@api.app_errorhandler(403)  # this has to be an app-wide handler
 def not_found(e):
     response = jsonify({'status': 401, 'error': 'Unauthorized',
                         'message': 'Unauthorized'})
-    response.status_code = 401
+    response.status_code = 403
     return response
 
 
